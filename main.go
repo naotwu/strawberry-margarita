@@ -12,5 +12,9 @@ func topPage(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", topPage)
+
+	fs := http.FileServer(http.Dir("asset/"))
+    http.Handle("/asset/", http.StripPrefix("/asset/", fs))
+
 	http.ListenAndServe(":10000", nil)
 }
